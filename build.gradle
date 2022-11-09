@@ -2,11 +2,34 @@ plugins {
 	id 'org.springframework.boot' version '2.7.5'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 	id 'java'
+	id 'com.github.node-gradle.node' version '3.5.0'
 }
 
 group = 'com.codegang'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
+
+node {
+	version = "16.15.0"
+	npmVersion = "8.5.5"
+	workDir = file("${project.projectDir}/src/frontend")
+	npmWorkDir = file("${project.projectDir}/src/frontend")
+	nodeModulesDir = file("${project.projectDir}/src/frontend")
+}
+
+task setup(type: NpmTask) {
+	description = "Install NodeJS packages"
+	args = ['install']
+	inputs.files file('package.json')
+	outputs.files file('node_modules')
+}
+
+task buildFrontend(type: NpmTask, dependsOn: setup) {
+	description = "Build VueJS"
+	args = ['run', 'build']
+}
+
+processResources.dependsOn 'buildFrontend'
 
 configurations {
 	compileOnly {
