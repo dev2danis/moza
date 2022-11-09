@@ -1,10 +1,16 @@
 <template>
-  <div>connect vue-spring</div>
+	<div>
+		<!-- <nav-bar></nav-bar> -->
+	</div>
 </template>
 
 <script>
-export default {
+// import NavBar from '@/components/component/NavBar.vue'
 
+export default {
+	components: {
+		// NavBar
+	}
 }
 </script>
 
