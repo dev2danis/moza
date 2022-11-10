@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import NavBar from './components/component/NavBar.vue'
-import Home from './components/view/Home.vue'
+import NavBar from '@/components/component/NavBar.vue'
+import Home from '@/components/view/Home.vue'
 
 export default {
 	name: 'App',

@@ -1,13 +1,22 @@
 <template>
-	<b-navbar toggleable="lg" type="dark" variant="info">
-		test
-	</b-navbar>
+	<header>
+		<b-navbar
+			variant="primary"
+		>
+			<b-navbar-brand href="#">{{ getProjectName }}</b-navbar-brand>
+		</b-navbar>
+	</header>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 
 export default {
-	
+	computed: {
+		...mapGetters([
+			'getProjectName'
+		]),
+	}
 }
 </script>
 
