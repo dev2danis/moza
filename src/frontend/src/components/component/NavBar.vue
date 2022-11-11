@@ -2,8 +2,19 @@
 	<header>
 		<b-navbar
 			variant="primary"
+			style="justify-content: space-between"
 		>
-			<b-navbar-brand href="#">{{ getProjectName }}</b-navbar-brand>
+			<div
+				style="margin-left: 20px"
+			>
+				<b-navbar-brand href="#">{{ getProjectName }}</b-navbar-brand>
+			</div>
+			
+			<div
+				style="margin-right: 20px"
+			>
+				<b-button @click="moveLoginPage()">sign in</b-button>
+			</div>
 		</b-navbar>
 	</header>
 </template>
@@ -16,6 +27,11 @@ export default {
 		...mapGetters([
 			'getProjectName'
 		]),
+	},
+	methods: {
+		moveLoginPage() {
+			this.$router.push('/login').catch(() => {})
+		}
 	}
 }
 </script>
