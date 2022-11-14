@@ -1,46 +1,44 @@
 <template>
-    <div
-        style="display: flex"
-    >
-        <b-card
-            style="max-width: 400px"
-        >
-            <b-form class="form-control-sm">
-                <b-form-group
-                    id="input-group-id"
-                    label="ID:"
-                    label-for="input-id"
-                >
-                    <b-form-input
-                        id="input-id"
-                        placeholder="ID"
-                        required
-                    >
-                    </b-form-input>
-                </b-form-group>
-                <b-form-group
-                    id="input-group-password"
-                    label="PASSWORD"
-                    label-for="input-password"
-                >
-                    <b-form-input
-                        id="input-password"
-                        type="password"
-                        required
-                    >
-                    </b-form-input>
-                </b-form-group>
-            </b-form>
-        </b-card>
-    </div>
+  <v-card style="width: 400px; margin: auto auto">
+    <v-form style="margin-left: 10px; margin-right: 10px">
+      <v-text-field v-model="email" :rules="emailRules" label="E-mail" required>
+      </v-text-field>
+      <v-text-field
+        v-model="password"
+        :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+        :rules="[rules.required, rules.min]"
+        :type="show1 ? 'text' : 'password'"
+        label="Password"
+        hint="At least 8 characters"
+        counter
+        required
+        @click:append="show1 = !show1"
+      >
+      </v-text-field>
+      <v-btn color="primary" style="margin-bottom: 10px"> Sign in </v-btn>
+      <p style="margin-bttom: 10px">
+        Don't have an account?
+        <a href="#" @click.prevent="terms = true">Sign up</a>
+      </p>
+    </v-form>
+  </v-card>
 </template>
 
 <script>
 export default {
-
-}
+  data: () => ({
+    email: "",
+    emailRules: [
+      (v) => !!v || "E-mail is required",
+      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+    ],
+    show1: false,
+    rules: {
+      required: (value) => !!value || "Required.",
+      min: (v) => v.length >= 8 || "Min 8 characters",
+    },
+  }),
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
