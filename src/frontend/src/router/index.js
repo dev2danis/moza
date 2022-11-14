@@ -10,10 +10,10 @@ const router = new VueRouter({
         redirect: '/home'
     },{
         path: '/home',
-        component: () => import('@/components/view/Home.vue')
+        component: () => import('@/views/Home.vue')
     },{
         path: '/login',
-        component: () => import('@/components/view/Login.vue')
+        component: () => import('@/views/Login.vue')
     }]
 })
 
