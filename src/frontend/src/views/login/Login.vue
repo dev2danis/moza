@@ -18,7 +18,7 @@
       <v-btn color="primary" style="margin-bottom: 10px"> Sign in </v-btn>
       <p style="margin-bttom: 10px">
         Don't have an account?
-        <a href="#" @click.prevent="terms = true">Sign up</a>
+        <a href="/login/register">Sign up</a>
       </p>
     </v-form>
   </v-card>
