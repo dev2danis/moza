@@ -5,7 +5,12 @@ spring:
 ---
 
 spring:
-    profiles: local
+    config:
+        activate:
+            on-profile: local
+    mvc:
+        pathmatch:
+            matching-strategy: ant-path-matcher
 
 server:
     port: 9000

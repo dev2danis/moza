@@ -62,7 +62,7 @@
 					@blur="$v.name.$touch()"
 				></v-text-field>
 
-				<v-btn class="mr-4" color="primary" @click="submit">
+				<v-btn class="mr-4" color="primary" @click="checkForm">
 					submit
 				</v-btn>
 				<v-btn @click="clear"> clear </v-btn>
@@ -73,7 +73,13 @@
 
 <script>
 import { validationMixin } from "vuelidate";
-import { required, maxLength, minLength, email } from "vuelidate/lib/validators";
+import {
+	required,
+	maxLength,
+	minLength,
+	email,
+} from "vuelidate/lib/validators";
+import axios from "axios";
 
 export default {
 	mixins: [validationMixin],
@@ -81,7 +87,7 @@ export default {
 		name: { required, maxLength: maxLength(10) },
 		email: { required, email },
 		password: { required, minLength: minLength(8) },
-		confirm: { required, minLength: minLength(8) }
+		confirm: { required, minLength: minLength(8) },
 	},
 	data: () => ({
 		name: "",
@@ -89,7 +95,8 @@ export default {
 		password: "",
 		confirm: "",
 		showPassword: false,
-		showConfirm: false
+		showConfirm: false,
+		submitCode: "",
 	}),
 	computed: {
 		emailErrors() {
@@ -109,20 +116,49 @@ export default {
 		},
 		passwordErrors() {
 			const errors = [];
-			if(!this.$v.password.$dirty) return errors;
-			!this.$v.password.minLength && errors.push("Password must be at least 8 characters")
-			!this.$v.password.required && errors.push("Password is required")
+			if (!this.$v.password.$dirty) return errors;
+			!this.$v.password.minLength &&
+				errors.push("Password must be at least 8 characters");
+			!this.$v.password.required && errors.push("Password is required");
 			return errors;
 		},
 		confirmErrors() {
 			const errors = [];
-			if(!this.$v.confirm.$dirty) return errors;
-			!this.$v.confirm.required && errors.push("Confirm Password is required")
-			!this.$v.confirm.minLength && errors.push("Confirm Password must be at least 8 characters")
-			!(this.password == this.confirm) && errors.push("Password must match")
-			console.log(this.password == this.confirm)
+			if (!this.$v.confirm.$dirty) return errors;
+			!this.$v.confirm.required &&
+				errors.push("Confirm Password is required");
+			!this.$v.confirm.minLength &&
+				errors.push("Confirm Password must be at least 8 characters");
+			!(this.password == this.confirm) &&
+				errors.push("Password must match");
+			console.log(this.password == this.confirm);
 			return errors;
-		}
+		},
+	},
+	methods: {
+		checkForm() {
+			alert("CHECK");
+			this.$v.$touch();
+			if (this.$v.$invalid) {
+				this.submitCode = "ERROR";
+				alert("FAIL");
+			} else {
+				alert("TRUE");
+				this.submit()
+			}
+		},
+		submit() {
+			alert("SUBMIT");
+			let data = {
+				email: this.email,
+				name: this.name,
+				password: this.password
+			}
+			axios
+				.post("/login/regist", data)
+				.then((response) => {alert(response)})
+				.catch((error) => {alert(error)});
+		},
 	},
 };
 </script>
