@@ -13,10 +13,10 @@ const router = new VueRouter({
         component: () => import('@/views/Home.vue')
     },{
         path: '/login',
-        component: () => import('@/views/login/Login.vue')
+        component: () => import('@/views/Login.vue')
     },{
-        path: '/login/register',
-        component: () => import('@/views/login/Register.vue')
+        path: '/register',
+        component: () => import('@/views/Register.vue')
     }]
 })
 
